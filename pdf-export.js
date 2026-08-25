@@ -57,7 +57,7 @@ async function generatePDF(puzzlesData, trimSizeStr, solutionsPerPage) {
 
         // Calculate max cell size so the grid fits within usable width
         // and leaves room for clues below
-        const clueAreaHeight = 1.8; // reserve space at bottom for clues
+        const clueAreaHeight = 2.5; // reserve generous space at bottom for clues
         const maxGridH = usableH - 0.5 - clueAreaHeight; // subtract title area + clue area
         const maxGridW = usableW;
 
@@ -127,15 +127,15 @@ async function generatePDF(puzzlesData, trimSizeStr, solutionsPerPage) {
         }
 
         // ── Clues ────────────────────────────────────────────────────
-        const clueStartY = gridY + gridH + 0.25;
-        const clueFontSize = Math.min(12, usableW / (s.clueCols * 2)); // auto-scale
+        const clueStartY = gridY + gridH + 0.35;
+        const clueFontSize = 11; // clear, readable size matching preview
         pdf.setFontSize(clueFontSize);
         pdf.setFont('Helvetica', 'normal');
         pdf.setTextColor(0, 0, 0);
 
         const sortedWords = result.placedWords.map(p => p.word).sort();
         const colWidth = usableW / s.clueCols;
-        const lineHeight = clueFontSize / 72 + 0.08;
+        const lineHeight = clueFontSize / 72 + 0.12; // generous spacing
 
         sortedWords.forEach((word, idx) => {
             const col = idx % s.clueCols;
